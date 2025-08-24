@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our 3 Beautiful Years Together ❤️</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Hearts Animation -->
+    <div class="hearts-container">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">Our Love Story</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#timeline" class="nav-link">Our Journey</a></li>
+                <li><a href="#memories" class="nav-link">Memories</a></li>
+                <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                <li><a href="#letter" class="nav-link">Love Letter</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">3 Years of Pure Magic</h1>
+            <p class="hero-subtitle">A journey of love, laughter, and endless memories</p>
+            <div class="hero-date">
+                <i class="fas fa-heart"></i>
+                <span>Since [Your Anniversary Date]</span>
+                <i class="fas fa-heart"></i>
+            </div>
+            <button class="cta-button" onclick="scrollToSection('timeline')">
+                Explore Our Story
+                <i class="fas fa-arrow-down"></i>
+            </button>
+        </div>
+        <div class="hero-image">
+            <div class="photo-frame">
+                <img src="https://via.placeholder.com/400x300/ff69b4/ffffff?text=Our+First+Photo" alt="Our beautiful memory" id="hero-photo">
+                <div class="photo-caption">Replace with your favorite photo together</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Our Beautiful Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Year 1</div>
+                        <h3>The Beginning</h3>
+                        <p>When we first met and everything changed. The spark that started it all.</p>
+                        <div class="timeline-image">
+                            <img src="https://via.placeholder.com/300x200/ff1493/ffffff?text=Year+1" alt="Year 1">
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Year 2</div>
+                        <h3>Growing Stronger</h3>
+                        <p>Our love deepened, we learned about each other, and created countless memories.</p>
+                        <div class="timeline-image">
+                            <img src="https://via.placeholder.com/300x200/ff69b4/ffffff?text=Year+2" alt="Year 2">
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">Year 3</div>
+                        <h3>Forever & Always</h3>
+                        <p>Here we are, stronger than ever, ready for whatever comes next in our journey.</p>
+                        <div class="timeline-image">
+                            <img src="https://via.placeholder.com/300x200/ff1493/ffffff?text=Year+3" alt="Year 3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memories Gallery -->
+    <section id="memories" class="memories-section">
+        <div class="container">
+            <h2 class="section-title">Our Precious Memories</h2>
+            <div class="memories-grid">
+                <div class="memory-card" onclick="openMemory(1)">
+                    <img src="https://via.placeholder.com/300x300/ff69b4/ffffff?text=Memory+1" alt="Memory 1">
+                    <div class="memory-overlay">
+                        <h3>First Date</h3>
+                        <p>The day that started everything</p>
+                    </div>
+                </div>
+                <div class="memory-card" onclick="openMemory(2)">
+                    <img src="https://via.placeholder.com/300x300/ff1493/ffffff?text=Memory+2" alt="Memory 2">
+                    <div class="memory-overlay">
+                        <h3>First Trip</h3>
+                        <p>Adventure together</p>
+                    </div>
+                </div>
+                <div class="memory-card" onclick="openMemory(3)">
+                    <img src="https://via.placeholder.com/300x300/ff69b4/ffffff?text=Memory+3" alt="Memory 3">
+                    <div class="memory-overlay">
+                        <h3>Special Moments</h3>
+                        <p>Everyday magic</p>
+                    </div>
+                </div>
+                <div class="memory-card" onclick="openMemory(4)">
+                    <img src="https://via.placeholder.com/300x300/ff1493/ffffff?text=Memory+4" alt="Memory 4">
+                    <div class="memory-overlay">
+                        <h3>Celebrations</h3>
+                        <p>Happy times together</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="quiz-section">
+        <div class="container">
+            <h2 class="section-title">How Well Do You Know Us?</h2>
+            <div class="quiz-container">
+                <div class="quiz-question active" id="question-1">
+                    <h3>Question 1 of 5</h3>
+                    <p>Where did we have our first date?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="selectAnswer(1, 'A')">A) Coffee Shop</button>
+                        <button class="quiz-option" onclick="selectAnswer(1, 'B')">B) Restaurant</button>
+                        <button class="quiz-option" onclick="selectAnswer(1, 'C')">C) Park</button>
+                        <button class="quiz-option" onclick="selectAnswer(1, 'D')">D) Movies</button>
+                    </div>
+                </div>
+                <div class="quiz-question" id="question-2">
+                    <h3>Question 2 of 5</h3>
+                    <p>What's my favorite thing about you?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="selectAnswer(2, 'A')">A) Your smile</button>
+                        <button class="quiz-option" onclick="selectAnswer(2, 'B')">B) Your laugh</button>
+                        <button class="quiz-option" onclick="selectAnswer(2, 'C')">C) Your kindness</button>
+                        <button class="quiz-option" onclick="selectAnswer(2, 'D')">D) Everything</button>
+                    </div>
+                </div>
+                <div class="quiz-question" id="question-3">
+                    <h3>Question 3 of 5</h3>
+                    <p>What's our favorite song?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="selectAnswer(3, 'A')">A) Perfect by Ed Sheeran</button>
+                        <button class="quiz-option" onclick="selectAnswer(3, 'B')">B) All of Me by John Legend</button>
+                        <button class="quiz-option" onclick="selectAnswer(3, 'C')">C) Thinking Out Loud</button>
+                        <button class="quiz-option" onclick="selectAnswer(3, 'D')">D) [Your actual song]</button>
+                    </div>
+                </div>
+                <div class="quiz-question" id="question-4">
+                    <h3>Question 4 of 5</h3>
+                    <p>What's our dream destination?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="selectAnswer(4, 'A')">A) Paris</button>
+                        <button class="quiz-option" onclick="selectAnswer(4, 'B')">B) Maldives</button>
+                        <button class="quiz-option" onclick="selectAnswer(4, 'C')">C) Japan</button>
+                        <button class="quiz-option" onclick="selectAnswer(4, 'D')">D) Anywhere together</button>
+                    </div>
+                </div>
+                <div class="quiz-question" id="question-5">
+                    <h3>Question 5 of 5</h3>
+                    <p>What do I love most about our relationship?</p>
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="selectAnswer(5, 'A')">A) How we laugh together</button>
+                        <button class="quiz-option" onclick="selectAnswer(5, 'B')">B) How we support each other</button>
+                        <button class="quiz-option" onclick="selectAnswer(5, 'C')">C) How comfortable we are</button>
+                        <button class="quiz-option" onclick="selectAnswer(5, 'D')">D) Everything about us</button>
+                    </div>
+                </div>
+                <div class="quiz-result" id="quiz-result" style="display: none;">
+                    <h3>Quiz Complete!</h3>
+                    <p id="quiz-score"></p>
+                    <p id="quiz-message"></p>
+                    <button class="quiz-restart" onclick="restartQuiz()">Take Quiz Again</button>
+                </div>
+                <div class="quiz-navigation">
+                    <button class="quiz-nav-btn" id="prev-btn" onclick="previousQuestion()" disabled>Previous</button>
+                    <button class="quiz-nav-btn" id="next-btn" onclick="nextQuestion()" disabled>Next</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Love Letter Section -->
+    <section id="letter" class="letter-section">
+        <div class="container">
+            <h2 class="section-title">A Letter From My Heart</h2>
+            <div class="letter-container">
+                <div class="letter-paper">
+                    <div class="letter-header">
+                        <div class="letter-date">Today and Always</div>
+                        <div class="letter-to">To My Beautiful [Her Name],</div>
+                    </div>
+                    <div class="letter-content">
+                        <p>Three years ago, you walked into my life and changed everything. What started as a simple hello has become the most beautiful love story I could have ever imagined.</p>
+                        
+                        <p>I know sometimes you feel like I don't make enough effort, but I want you to know that every single day I wake up grateful for you. You are my first thought in the morning and my last thought at night.</p>
+                        
+                        <p>These three years have been filled with laughter, adventures, quiet moments, and endless love. You've seen me at my best and my worst, and somehow you still choose to love me. That means everything to me.</p>
+                        
+                        <p>I created this website because I wanted to show you, in a way that words alone couldn't express, just how much you mean to me. Every photo, every memory, every moment we've shared is precious to me.</p>
+                        
+                        <p>I promise to keep making efforts, to keep surprising you, to keep loving you with everything I have. Because you, my love, are worth every effort in the world.</p>
+                        
+                        <p>Here's to our past, our present, and our beautiful future together.</p>
+                    </div>
+                    <div class="letter-signature">
+                        <p>Forever yours,</p>
+                        <p class="signature">[Your Name] ❤️</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Modal -->
+    <div id="memory-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeMemory()">&times;</span>
+            <img id="modal-image" src="" alt="Memory">
+            <div class="modal-text">
+                <h3 id="modal-title"></h3>
+                <p id="modal-description"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Made with ❤️ for the most amazing person in the world</p>
+            <div class="footer-hearts">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
