@@ -532,5 +532,194 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Carousel functionality
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.carousel-slide');
+const indicators = document.querySelectorAll('.indicator');
+const totalSlides = slides.length;
+
+function showSlide(index) {
+    // Remove active class from all slides and indicators
+    slides.forEach(slide => slide.classList.remove('active', 'prev'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+    
+    // Add active class to current slide and indicator
+    if (slides[index]) {
+        slides[index].classList.add('active');
+    }
+    if (indicators[index]) {
+        indicators[index].classList.add('active');
+    }
+    
+    // Track carousel interaction
+    analytics.logInteraction({
+        event: 'carousel_slide_viewed',
+        slideIndex: index,
+        timestamp: new Date().toISOString()
+    });
+}
+
+function nextSlide() {
+    const prevIndex = currentSlideIndex;
+    currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+    
+    // Add prev class to previous slide for animation
+    if (slides[prevIndex]) {
+        slides[prevIndex].classList.add('prev');
+    }
+    
+    showSlide(currentSlideIndex);
+    
+    analytics.logInteraction({
+        event: 'carousel_next_clicked',
+        fromSlide: prevIndex,
+        toSlide: currentSlideIndex,
+        timestamp: new Date().toISOString()
+    });
+}
+
+function prevSlide() {
+    const prevIndex = currentSlideIndex;
+    currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+    showSlide(currentSlideIndex);
+    
+    analytics.logInteraction({
+        event: 'carousel_prev_clicked',
+        fromSlide: prevIndex,
+        toSlide: currentSlideIndex,
+        timestamp: new Date().toISOString()
+    });
+}
+
+function currentSlide(index) {
+    const prevIndex = currentSlideIndex;
+    currentSlideIndex = index - 1; // Convert to 0-based index
+    showSlide(currentSlideIndex);
+    
+    analytics.logInteraction({
+        event: 'carousel_indicator_clicked',
+        fromSlide: prevIndex,
+        toSlide: currentSlideIndex,
+        timestamp: new Date().toISOString()
+    });
+}
+
+// Auto-play carousel (optional)
+function startCarouselAutoPlay() {
+    setInterval(() => {
+        if (document.visibilityState === 'visible') {
+            nextSlide();
+        }
+    }, 5000); // Change slide every 5 seconds
+}
+
+// Touch/swipe support for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+function handleTouchStart(event) {
+    touchStartX = event.changedTouches[0].screenX;
+}
+
+function handleTouchEnd(event) {
+    touchEndX = event.changedTouches[0].screenX;
+    handleSwipe();
+}
+
+function handleSwipe() {
+    const swipeThreshold = 50; // Minimum distance for swipe
+    const swipeDistance = touchEndX - touchStartX;
+    
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+            // Swipe right - go to previous slide
+            prevSlide();
+        } else {
+            // Swipe left - go to next slide
+            nextSlide();
+        }
+        
+        analytics.logInteraction({
+            event: 'carousel_swipe',
+            direction: swipeDistance > 0 ? 'right' : 'left',
+            distance: Math.abs(swipeDistance),
+            timestamp: new Date().toISOString()
+        });
+    }
+}
+
+// Initialize carousel when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize carousel
+    showSlide(0);
+    
+    // Add touch event listeners for mobile swipe
+    const carousel = document.querySelector('.carousel');
+    if (carousel) {
+        carousel.addEventListener('touchstart', handleTouchStart, false);
+        carousel.addEventListener('touchend', handleTouchEnd, false);
+    }
+    
+    // Start auto-play (uncomment if you want auto-advancing slides)
+    // startCarouselAutoPlay();
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (event.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Video interaction tracking
+    setupVideoTracking();
+});
+
+// Video interaction tracking
+function setupVideoTracking() {
+    // Track when video section comes into view
+    const videoSection = document.getElementById('video');
+    if (videoSection) {
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    analytics.logInteraction({
+                        event: 'video_section_viewed',
+                        timestamp: new Date().toISOString()
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        videoObserver.observe(videoSection);
+    }
+    
+    // Track clicks on video area (YouTube handles the actual play tracking)
+    const videoWrapper = document.querySelector('.video-wrapper');
+    if (videoWrapper) {
+        videoWrapper.addEventListener('click', () => {
+            analytics.logInteraction({
+                event: 'video_clicked',
+                videoUrl: 'https://youtube.com/shorts/QvwWWXjPoGM',
+                timestamp: new Date().toISOString()
+            });
+        });
+    }
+    
+    // Track video navigation clicks
+    const videoNavLink = document.querySelector('a[href="#video"]');
+    if (videoNavLink) {
+        videoNavLink.addEventListener('click', () => {
+            analytics.logInteraction({
+                event: 'video_nav_clicked',
+                timestamp: new Date().toISOString()
+            });
+        });
+    }
+}
+
 console.log('💕 Website loaded with love! All interactions are being tracked. 💕');
+console.log('🎠 Beautiful carousel is ready with swipe support! 🎠');
+console.log('🎬 YouTube video embedded with analytics tracking! 🎬');
 console.log('💡 Tip: Call getAnalyticsData() in the console to see all tracked interactions!');

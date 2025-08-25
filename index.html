@@ -24,6 +24,7 @@
             <div class="nav-logo">Our Love Story</div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#video" class="nav-link">Our Video</a></li>
                 <li><a href="#timeline" class="nav-link">Our Journey</a></li>
                 <li><a href="#memories" class="nav-link">Memories</a></li>
                 <li><a href="#quiz" class="nav-link">Quiz</a></li>
@@ -32,7 +33,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Carousel -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="hero-title">3 Years of Pure Magic</h1>
@@ -47,10 +48,85 @@
                 <i class="fas fa-arrow-down"></i>
             </button>
         </div>
-        <div class="hero-image">
-            <div class="photo-frame">
-                <img src="https://via.placeholder.com/400x300/ff69b4/ffffff?text=Our+First+Photo" alt="Our beautiful memory" id="hero-photo">
-                <div class="photo-caption">Replace with your favorite photo together</div>
+        
+        <!-- Image Carousel -->
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide active">
+                        <div class="photo-frame">
+                            <img src="https://raw.githubusercontent.com/jayeshjidge/test-sandbox/main/images/Car.jpg" alt="Our beautiful memory 1">
+                            <div class="photo-caption">Our favorite moments together</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="photo-frame">
+                            <img src="https://via.placeholder.com/400x300/ff1493/ffffff?text=Photo+2" alt="Our beautiful memory 2">
+                            <div class="photo-caption">Making memories every day</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="photo-frame">
+                            <img src="https://via.placeholder.com/400x300/ff69b4/ffffff?text=Photo+3" alt="Our beautiful memory 3">
+                            <div class="photo-caption">Three years of pure love</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="photo-frame">
+                            <img src="https://via.placeholder.com/400x300/ff1493/ffffff?text=Photo+4" alt="Our beautiful memory 4">
+                            <div class="photo-caption">Forever and always</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Carousel Navigation -->
+                <button class="carousel-btn carousel-prev" onclick="prevSlide()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn carousel-next" onclick="nextSlide()">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                
+                <!-- Carousel Indicators -->
+                <div class="carousel-indicators">
+                    <span class="indicator active" onclick="currentSlide(1)"></span>
+                    <span class="indicator" onclick="currentSlide(2)"></span>
+                    <span class="indicator" onclick="currentSlide(3)"></span>
+                    <span class="indicator" onclick="currentSlide(4)"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="video" class="video-section">
+        <div class="container">
+            <h2 class="section-title">Our Beautiful Moments</h2>
+            <p class="video-description">A special video capturing our love story in motion 💕</p>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/QvwWWXjPoGM?rel=0&modestbranding=1&showinfo=0" 
+                        title="Our Beautiful Moments Together" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-caption">
+                    <i class="fas fa-heart"></i>
+                    <span>Every moment with you is a treasure</span>
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <!-- Play Button Overlay (decorative) -->
+            <div class="video-decorations">
+                <div class="floating-heart heart-1">💕</div>
+                <div class="floating-heart heart-2">❤️</div>
+                <div class="floating-heart heart-3">💖</div>
+                <div class="floating-heart heart-4">💝</div>
             </div>
         </div>
     </section>
