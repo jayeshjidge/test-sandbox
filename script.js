@@ -408,68 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Special surprise message (appears after spending some time on the site)
-setTimeout(() => {
-    if (document.visibilityState === 'visible') {
-        showSurpriseMessage();
-    }
-}, 60000); // After 1 minute
 
-function showSurpriseMessage() {
-    const surprise = document.createElement('div');
-    surprise.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(45deg, #ff69b4, #ff1493);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            z-index: 3000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            animation: fadeIn 0.5s ease-in;
-        ">
-            <h3 style="margin-bottom: 15px; font-family: 'Dancing Script', cursive; font-size: 1.8rem;">
-                💕 Special Message 💕
-            </h3>
-            <p style="margin-bottom: 20px; line-height: 1.6;">
-                Thank you for taking the time to explore our love story. 
-                Every second you spend here means the world to me! ❤️
-            </p>
-            <button onclick="this.parentElement.parentElement.remove()" style="
-                background: white;
-                color: #ff69b4;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 20px;
-                cursor: pointer;
-                font-weight: 600;
-            ">
-                Close 💖
-            </button>
-        </div>
-        <div style="
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2999;
-        " onclick="this.parentElement.remove()"></div>
-    `;
-    
-    document.body.appendChild(surprise);
-    
-    // Track surprise message
-    analytics.logInteraction({
-        event: 'surprise_message_shown',
-        timestamp: new Date().toISOString()
-    });
-}
 
 // Track when user leaves the page
 window.addEventListener('beforeunload', () => {
