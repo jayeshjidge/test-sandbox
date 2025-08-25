@@ -22,13 +22,18 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">Our Love Story</div>
+            <div class="nav-toggle" onclick="toggleMobileMenu()">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </div>
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#video" class="nav-link">Our Video</a></li>
-                <li><a href="#timeline" class="nav-link">Our Journey</a></li>
-                <li><a href="#memories" class="nav-link">Memories</a></li>
-                <li><a href="#quiz" class="nav-link">Quiz</a></li>
-                <li><a href="#letter" class="nav-link">Love Letter</a></li>
+                <li><a href="#home" class="nav-link" onclick="closeMobileMenu()">Home</a></li>
+                <li><a href="#video" class="nav-link" onclick="closeMobileMenu()">Our Video</a></li>
+                <li><a href="#timeline" class="nav-link" onclick="closeMobileMenu()">Our Journey</a></li>
+                <li><a href="#memories" class="nav-link" onclick="closeMobileMenu()">Memories</a></li>
+                <li><a href="#quiz" class="nav-link" onclick="closeMobileMenu()">Quiz</a></li>
+                <li><a href="#letter" class="nav-link" onclick="closeMobileMenu()">Love Letter</a></li>
             </ul>
         </div>
     </nav>
@@ -55,28 +60,29 @@
                 <div class="carousel-wrapper">
                     <div class="carousel-slide active">
                         <div class="photo-frame">
-                            <img src="https://raw.githubusercontent.com/jayeshjidge/test-sandbox/main/images/Car.jpg" alt="Our beautiful memory 1">
+                            <img src="images/33.jpg" alt="Our beautiful memory 1">
                             <div class="photo-caption">Our favorite moments together</div>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <div class="photo-frame">
-                            <img src="https://via.placeholder.com/400x300/ff1493/ffffff?text=Photo+2" alt="Our beautiful memory 2">
+                            <img src="images/8.jpg" alt="Our beautiful memory 2">
                             <div class="photo-caption">Making memories every day</div>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <div class="photo-frame">
-                            <img src="https://via.placeholder.com/400x300/ff69b4/ffffff?text=Photo+3" alt="Our beautiful memory 3">
+                            <img src="images/6.jpg" alt="Our beautiful memory 3">
                             <div class="photo-caption">Three years of pure love</div>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <div class="photo-frame">
-                            <img src="https://via.placeholder.com/400x300/ff1493/ffffff?text=Photo+4" alt="Our beautiful memory 4">
+                            <img src="images/1.jpg" alt="Our beautiful memory 4">
                             <div class="photo-caption">Forever and always</div>
                         </div>
                     </div>
+
                 </div>
                 
                 <!-- Carousel Navigation -->
@@ -94,6 +100,8 @@
                     <span class="indicator" onclick="currentSlide(3)"></span>
                     <span class="indicator" onclick="currentSlide(4)"></span>
                 </div>
+                
+
             </div>
         </div>
     </section>

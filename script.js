@@ -604,33 +604,110 @@ function currentSlide(index) {
     });
 }
 
-// Auto-play carousel (optional)
+// Auto-play carousel with smart pausing
+let autoPlayInterval;
+let progressInterval;
+let isAutoPlayActive = true;
+let autoPlayPaused = false;
+let progressWidth = 0;
+
 function startCarouselAutoPlay() {
-    setInterval(() => {
-        if (document.visibilityState === 'visible') {
-            nextSlide();
+    const progressBar = document.querySelector('.progress-bar');
+    
+    autoPlayInterval = setInterval(() => {
+        if (document.visibilityState === 'visible' && isAutoPlayActive && !autoPlayPaused) {
+            nextSlide(false); // false = automatic, not manual
+            progressWidth = 0; // Reset progress
+            if (progressBar) progressBar.style.width = '0%';
         }
-    }, 5000); // Change slide every 5 seconds
+    }, 4000); // Change slide every 4 seconds
+    
+    // Animate progress bar
+    progressInterval = setInterval(() => {
+        if (document.visibilityState === 'visible' && isAutoPlayActive && !autoPlayPaused) {
+            progressWidth += 0.625; // 100% / 160 intervals = 0.625% per 25ms (4000ms / 25ms = 160)
+            if (progressBar) {
+                progressBar.style.width = Math.min(progressWidth, 100) + '%';
+            }
+            if (progressWidth >= 100) {
+                progressWidth = 0;
+            }
+        }
+    }, 25); // Update every 25ms for smooth animation
 }
 
-// Touch/swipe support for mobile
+function pauseAutoPlay(duration = 8000) {
+    autoPlayPaused = true;
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) progressBar.style.width = '0%';
+    progressWidth = 0;
+    
+    setTimeout(() => {
+        autoPlayPaused = false;
+    }, duration); // Resume after 8 seconds of user inactivity
+}
+
+function stopAutoPlay() {
+    if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+        isAutoPlayActive = false;
+    }
+    if (progressInterval) {
+        clearInterval(progressInterval);
+    }
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) progressBar.style.width = '0%';
+}
+
+function resumeAutoPlay() {
+    if (!isAutoPlayActive) {
+        isAutoPlayActive = true;
+        startCarouselAutoPlay();
+    }
+}
+
+// Enhanced Touch/swipe support for mobile
 let touchStartX = 0;
 let touchEndX = 0;
+let touchStartY = 0;
+let touchEndY = 0;
+let isSwiping = false;
 
 function handleTouchStart(event) {
     touchStartX = event.changedTouches[0].screenX;
+    touchStartY = event.changedTouches[0].screenY;
+    isSwiping = false;
+}
+
+function handleTouchMove(event) {
+    // Prevent default scrolling when swiping horizontally
+    const touchCurrentX = event.changedTouches[0].screenX;
+    const touchCurrentY = event.changedTouches[0].screenY;
+    const deltaX = Math.abs(touchCurrentX - touchStartX);
+    const deltaY = Math.abs(touchCurrentY - touchStartY);
+    
+    // If horizontal movement is greater than vertical, prevent vertical scroll
+    if (deltaX > deltaY && deltaX > 10) {
+        event.preventDefault();
+        isSwiping = true;
+    }
 }
 
 function handleTouchEnd(event) {
+    if (!isSwiping) return;
+    
     touchEndX = event.changedTouches[0].screenX;
+    touchEndY = event.changedTouches[0].screenY;
     handleSwipe();
 }
 
 function handleSwipe() {
-    const swipeThreshold = 50; // Minimum distance for swipe
+    const swipeThreshold = 30; // Reduced threshold for better sensitivity
     const swipeDistance = touchEndX - touchStartX;
+    const verticalDistance = Math.abs(touchEndY - touchStartY);
     
-    if (Math.abs(swipeDistance) > swipeThreshold) {
+    // Only process horizontal swipes
+    if (Math.abs(swipeDistance) > swipeThreshold && verticalDistance < 100) {
         if (swipeDistance > 0) {
             // Swipe right - go to previous slide
             prevSlide();
@@ -656,11 +733,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add touch event listeners for mobile swipe
     const carousel = document.querySelector('.carousel');
     if (carousel) {
-        carousel.addEventListener('touchstart', handleTouchStart, false);
-        carousel.addEventListener('touchend', handleTouchEnd, false);
+        carousel.addEventListener('touchstart', handleTouchStart, { passive: false });
+        carousel.addEventListener('touchmove', handleTouchMove, { passive: false });
+        carousel.addEventListener('touchend', handleTouchEnd, { passive: false });
     }
     
-    // Start auto-play (uncomment if you want auto-advancing slides)
+    // Auto-play disabled - manual navigation only
     // startCarouselAutoPlay();
     
     // Keyboard navigation
@@ -719,7 +797,56 @@ function setupVideoTracking() {
     }
 }
 
+// Mobile Navigation Functions
+function toggleMobileMenu() {
+    const navMenu = document.querySelector('.nav-menu');
+    const navToggle = document.querySelector('.nav-toggle');
+    
+    navMenu.classList.toggle('active');
+    navToggle.classList.toggle('active');
+    
+    // Track mobile menu interaction
+    analytics.logInteraction({
+        event: 'mobile_menu_toggled',
+        isOpen: navMenu.classList.contains('active'),
+        timestamp: new Date().toISOString()
+    });
+}
+
+function closeMobileMenu() {
+    const navMenu = document.querySelector('.nav-menu');
+    const navToggle = document.querySelector('.nav-toggle');
+    
+    navMenu.classList.remove('active');
+    navToggle.classList.remove('active');
+    
+    // Track mobile menu close
+    analytics.logInteraction({
+        event: 'mobile_menu_closed',
+        timestamp: new Date().toISOString()
+    });
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const navMenu = document.querySelector('.nav-menu');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navbar = document.querySelector('.navbar');
+    
+    if (navMenu.classList.contains('active') && !navbar.contains(e.target)) {
+        closeMobileMenu();
+    }
+});
+
+// Close mobile menu on window resize if it's open
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+        closeMobileMenu();
+    }
+});
+
 console.log('💕 Website loaded with love! All interactions are being tracked. 💕');
-console.log('🎠 Beautiful carousel is ready with swipe support! 🎠');
+console.log('🎠 Beautiful carousel is ready with manual navigation and swipe support! 🎠');
 console.log('🎬 YouTube video embedded with analytics tracking! 🎬');
+console.log('📱 Mobile navigation is ready with hamburger menu! 📱');
 console.log('💡 Tip: Call getAnalyticsData() in the console to see all tracked interactions!');
