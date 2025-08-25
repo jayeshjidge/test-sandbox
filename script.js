@@ -798,29 +798,52 @@ function initializeMemoryGallery() {
     const memoryItems = document.querySelectorAll('.memory-item');
     lightboxImages = Array.from(memoryItems).map(item => {
         const img = item.querySelector('img');
-        const title = item.querySelector('h3').textContent;
-        const description = item.querySelector('p').textContent;
         return {
             src: img.src,
-            title: title,
-            description: description
+            title: '',
+            description: ''
         };
     });
 }
 
 // Lightbox functionality
-function openLightbox(imageSrc, title, description) {
+function openLightbox(imageSrc, title = '', description = '') {
     const modal = document.getElementById('lightbox-modal');
     const lightboxImage = document.getElementById('lightbox-image');
     const lightboxTitle = document.getElementById('lightbox-title');
     const lightboxDescription = document.getElementById('lightbox-description');
+    const lightboxInfo = document.querySelector('.lightbox-info');
+    const lightboxContent = document.querySelector('.lightbox-content');
 
     // Find the index of the current image
     currentLightboxIndex = lightboxImages.findIndex(img => img.src.includes(imageSrc));
     
+    // Reset any previous styling
+    lightboxContent.classList.remove('portrait-image', 'landscape-image');
+    
     lightboxImage.src = imageSrc;
-    lightboxTitle.textContent = title;
-    lightboxDescription.textContent = description;
+    
+    // Detect image aspect ratio and adjust layout
+    lightboxImage.onload = function() {
+        const aspectRatio = this.naturalWidth / this.naturalHeight;
+        
+        if (aspectRatio < 1) {
+            // Portrait image
+            lightboxContent.classList.add('portrait-image');
+        } else {
+            // Landscape image
+            lightboxContent.classList.add('landscape-image');
+        }
+    };
+    
+    // Hide info section if no title or description provided
+    if (!title && !description) {
+        lightboxInfo.style.display = 'none';
+    } else {
+        lightboxInfo.style.display = 'block';
+        lightboxTitle.textContent = title;
+        lightboxDescription.textContent = description;
+    }
     
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden'; // Prevent background scrolling
@@ -829,7 +852,7 @@ function openLightbox(imageSrc, title, description) {
     analytics.logInteraction({
         event: 'lightbox_opened',
         image: imageSrc,
-        title: title,
+        title: title || 'Gallery Image',
         timestamp: new Date().toISOString()
     });
 }
@@ -859,12 +882,29 @@ function updateLightboxImage() {
     const lightboxImage = document.getElementById('lightbox-image');
     const lightboxTitle = document.getElementById('lightbox-title');
     const lightboxDescription = document.getElementById('lightbox-description');
+    const lightboxContent = document.querySelector('.lightbox-content');
     
     const currentImage = lightboxImages[currentLightboxIndex];
+    
+    // Reset aspect ratio classes
+    lightboxContent.classList.remove('portrait-image', 'landscape-image');
     
     lightboxImage.src = currentImage.src;
     lightboxTitle.textContent = currentImage.title;
     lightboxDescription.textContent = currentImage.description;
+    
+    // Detect new image aspect ratio
+    lightboxImage.onload = function() {
+        const aspectRatio = this.naturalWidth / this.naturalHeight;
+        
+        if (aspectRatio < 1) {
+            // Portrait image
+            lightboxContent.classList.add('portrait-image');
+        } else {
+            // Landscape image
+            lightboxContent.classList.add('landscape-image');
+        }
+    };
 
     analytics.logInteraction({
         event: 'lightbox_navigation',
@@ -1005,9 +1045,94 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// Footer button functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const sendLoveBtn = document.querySelector('.footer-btn:first-of-type');
+    const rateUsBtn = document.querySelector('.footer-btn:last-of-type');
+    
+    if (sendLoveBtn) {
+        sendLoveBtn.addEventListener('click', () => {
+            // Track the interaction
+            analytics.logInteraction({
+                event: 'footer_button_clicked',
+                button: 'send_love',
+                timestamp: new Date().toISOString()
+            });
+            
+            // Show a sweet message
+            showFooterMessage('💌 Love sent! Your message has been delivered to the heart! 💕');
+        });
+    }
+    
+    if (rateUsBtn) {
+        rateUsBtn.addEventListener('click', () => {
+            // Track the interaction
+            analytics.logInteraction({
+                event: 'footer_button_clicked',
+                button: 'rate_us',
+                timestamp: new Date().toISOString()
+            });
+            
+            // Show rating options
+            showRatingOptions();
+        });
+    }
+});
+
+// Show footer messages
+function showFooterMessage(message) {
+    // Create a temporary message element
+    const messageEl = document.createElement('div');
+    messageEl.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(45deg, #ff69b4, #3498db);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        z-index: 10000;
+        box-shadow: 0 8px 25px rgba(255, 105, 180, 0.4);
+        animation: slideInUp 0.5s ease-out;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    `;
+    messageEl.textContent = message;
+    
+    document.body.appendChild(messageEl);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        messageEl.style.animation = 'slideOutDown 0.5s ease-out';
+        setTimeout(() => {
+            if (messageEl.parentNode) {
+                messageEl.parentNode.removeChild(messageEl);
+            }
+        }, 500);
+    }, 3000);
+}
+
+// Show rating options
+function showRatingOptions() {
+    const ratings = ['⭐', '⭐⭐', '⭐⭐⭐', '⭐⭐⭐⭐', '⭐⭐⭐⭐⭐'];
+    const message = `Rate our love story: ${ratings.join(' ')}`;
+    
+    // Track rating interaction
+    analytics.logInteraction({
+        event: 'rating_requested',
+        timestamp: new Date().toISOString()
+    });
+    
+    showFooterMessage(message);
+}
+
 console.log('💕 Website loaded with love! All interactions are being tracked. 💕');
 console.log('🎠 Beautiful carousel is ready with manual navigation and swipe support! 🎠');
 console.log('🎬 Local video player ready with custom controls and analytics! 🎬');
 console.log('📱 Mobile navigation is ready with hamburger menu! 📱');
 console.log('🖼️ Interactive memory gallery with lightbox is ready! 🖼️');
+console.log('🎯 Footer buttons are ready with interactive functionality! 🎯');
 console.log('💡 Tip: Call getAnalyticsData() in the console to see all tracked interactions!');
