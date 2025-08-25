@@ -21,7 +21,7 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-logo">Our Love Story</div>
+            <div class="nav-logo">Sanika & Jayesh</div>
             <div class="nav-toggle" onclick="toggleMobileMenu()">
                 <span class="hamburger-line"></span>
                 <span class="hamburger-line"></span>
@@ -45,10 +45,10 @@
             <p class="hero-subtitle">A journey of love, laughter, and endless memories</p>
             <div class="hero-date">
                 <i class="fas fa-heart"></i>
-                <span>Since [Your Anniversary Date]</span>
+                <span>Since 26 Aug 2026</span>
                 <i class="fas fa-heart"></i>
             </div>
-            <button class="cta-button" onclick="scrollToSection('timeline')">
+            <button class="cta-button" onclick="scrollToSection('video')">
                 Explore Our Story
                 <i class="fas fa-arrow-down"></i>
             </button>
@@ -66,19 +66,25 @@
                     </div>
                     <div class="carousel-slide">
                         <div class="photo-frame">
-                            <img src="images/8.jpg" alt="Our beautiful memory 2">
+                            <img src="images/18.jpg" alt="Our beautiful memory 2">
                             <div class="photo-caption">Making memories every day</div>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <div class="photo-frame">
-                            <img src="images/6.jpg" alt="Our beautiful memory 3">
-                            <div class="photo-caption">Three years of pure love</div>
+                            <img src="images/8.jpg" alt="Our beautiful memory 3">
+                            <div class="photo-caption">Making memories every day</div>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <div class="photo-frame">
                             <img src="images/1.jpg" alt="Our beautiful memory 4">
+                            <div class="photo-caption">Three years of pure love</div>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <div class="photo-frame">
+                            <img src="images/6.jpg" alt="Our beautiful memory 5">
                             <div class="photo-caption">Forever and always</div>
                         </div>
                     </div>
@@ -99,6 +105,7 @@
                     <span class="indicator" onclick="currentSlide(2)"></span>
                     <span class="indicator" onclick="currentSlide(3)"></span>
                     <span class="indicator" onclick="currentSlide(4)"></span>
+                    <span class="indicator" onclick="currentSlide(5)"></span>
                 </div>
                 
 
@@ -114,13 +121,21 @@
             
             <div class="video-container">
                 <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/QvwWWXjPoGM?rel=0&modestbranding=1&showinfo=0" 
-                        title="Our Beautiful Moments Together" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen>
-                    </iframe>
+                        <video 
+                            id="love-story-video"
+                            class="local-video-player"
+                            controls 
+                            preload="metadata"
+                            poster="images/1.jpg"
+                            disablePictureInPicture="false">
+                            <source src="videos/compressed_video.mp4" type="video/mp4">
+                            <p>Your browser doesn't support HTML5 video. 😔</p>
+                        </video>
+                        <div class="video-controls-overlay">
+                            <button class="custom-play-btn" onclick="toggleVideoPlay()">
+                                <i class="fas fa-play" id="play-icon"></i>
+                            </button>
+                        </div>
                 </div>
                 <div class="video-caption">
                     <i class="fas fa-heart"></i>
@@ -146,31 +161,176 @@
             <div class="timeline">
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <div class="timeline-date">Year 1</div>
-                        <h3>The Beginnings</h3>
-                        <p>When we first met and everything changed. The spark that started it all.</p>
+                        <div class="timeline-date">August 2022</div>
+                        <h3>The Beginning 💫</h3>
+                        <p>Our very first meeting - the moment that changed everything. Two hearts finding each other in this vast world.</p>
                         <div class="timeline-image">
-                            <img src="https://raw.githubusercontent.com/jayeshjidge/test-sandbox/main/images/Car.jpg" alt="Year 1">
+                            <img src="images/1.jpg" alt="Our first meeting">
                         </div>
                     </div>
                 </div>
+                
                 <div class="timeline-item right">
                     <div class="timeline-content">
-                        <div class="timeline-date">Year 2</div>
-                        <h3>Growing Stronger</h3>
-                        <p>Our love deepened, we learned about each other, and created countless memories.</p>
+                        <div class="timeline-date">September 2022</div>
+                        <h3>First Adventures 🌟</h3>
+                        <p>Our early days of getting to know each other - coffee dates, long walks, and endless conversations that made us realize we had something special.</p>
                         <div class="timeline-image">
-                            <img src="https://via.placeholder.com/300x200/ff69b4/ffffff?text=Year+2" alt="Year 2">
+                            <img src="images/2.jpg" alt="Early adventures">
                         </div>
                     </div>
                 </div>
+
                 <div class="timeline-item left">
                     <div class="timeline-content">
-                        <div class="timeline-date">Year 3</div>
-                        <h3>Forever & Always</h3>
-                        <p>Here we are, stronger than ever, ready for whatever comes next in our journey.</p>
+                        <div class="timeline-date">October 2022</div>
+                        <h3>Growing Closer 💕</h3>
+                        <p>The butterflies, the stolen glances, the way you made me laugh - this was when I knew you were becoming someone incredibly important to me.</p>
                         <div class="timeline-image">
-                            <img src="https://via.placeholder.com/300x200/ff1493/ffffff?text=Year+3" alt="Year 3">
+                            <img src="images/3.jpg" alt="Growing closer">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">December 2022</div>
+                        <h3>First Festival Together 🎄</h3>
+                        <p>Celebrating our first holiday season together - the joy of sharing traditions and creating new ones that would become ours.</p>
+                        <div class="timeline-image">
+                            <img src="images/4.jpg" alt="First festival">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">February 2023</div>
+                        <h3>Making Memories 📸</h3>
+                        <p>Every moment became a treasure - silly selfies, candid shots, and posed pictures that captured our growing love and happiness together.</p>
+                        <div class="timeline-image">
+                            <img src="images/5.jpg" alt="Making memories">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">April 2023</div>
+                        <h3>Special Moments 🌸</h3>
+                        <p>Spring brought new beginnings and deeper connections. Every shared smile, every gentle touch, every quiet moment together was building something beautiful.</p>
+                        <div class="timeline-image">
+                            <img src="images/6.jpg" alt="Special spring moments">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">June 2023</div>
+                        <h3>Summer Love ☀️</h3>
+                        <p>Hot summer days filled with laughter, adventures, and the realization that every season was better when we were together.</p>
+                        <div class="timeline-image">
+                            <img src="images/7.jpg" alt="Summer adventures">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2023</div>
+                        <h3>One Year Strong 🎉</h3>
+                        <p>Our first anniversary - celebrating twelve months of love, growth, and countless beautiful memories that made us realize this was just the beginning.</p>
+                        <div class="timeline-image">
+                            <img src="images/8.jpg" alt="First anniversary">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">November 2023</div>
+                        <h3>Deepening Bond 🤝</h3>
+                        <p>Learning about each other's dreams, supporting each other's goals, and building a foundation of trust and understanding that would carry us forward.</p>
+                        <div class="timeline-image">
+                            <img src="images/9.jpg" alt="Deepening our bond">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">January 2024</div>
+                        <h3>New Year, New Dreams 🌟</h3>
+                        <p>Starting another year together with hopes, plans, and dreams that we would chase side by side. Every resolution was sweeter when shared.</p>
+                        <div class="timeline-image">
+                            <img src="images/10.jpg" alt="New year together">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">March 2024</div>
+                        <h3>Adventures Continue 🚗</h3>
+                        <p>Exploring new places, trying new things, and discovering that the best adventures weren't about where we went, but who we were with.</p>
+                        <div class="timeline-image">
+                            <img src="images/11.jpg" alt="New adventures">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 2024</div>
+                        <h3>Everyday Magic ✨</h3>
+                        <p>Finding joy in the simple moments - cooking together, watching movies, sharing inside jokes, and realizing that ordinary days with you were extraordinary.</p>
+                        <div class="timeline-image">
+                            <img src="images/12.jpg" alt="Everyday magic">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2024</div>
+                        <h3>Two Years of Love 💝</h3>
+                        <p>Celebrating two beautiful years together - looking back at how far we've come and forward to all the amazing moments still waiting for us.</p>
+                        <div class="timeline-image">
+                            <img src="images/13.jpg" alt="Two years celebration">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">October 2024</div>
+                        <h3>Growing Together 🌱</h3>
+                        <p>Not just growing older, but growing wiser, kinder, and more in love. Every challenge faced together made us stronger as a team.</p>
+                        <div class="timeline-image">
+                            <img src="images/14.jpg" alt="Growing together">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="timeline-date">December 2024</div>
+                        <h3>Holiday Traditions 🎁</h3>
+                        <p>Creating our own holiday traditions, sharing the warmth of the season, and being grateful for the gift of having each other in our lives.</p>
+                        <div class="timeline-image">
+                            <img src="images/15.jpg" alt="Holiday traditions">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="timeline-date">August 2025</div>
+                        <h3>Three Years & Beyond 🌈</h3>
+                        <p>Here we are - three incredible years later, still laughing together, still learning from each other, and still excited about our future. This is just the beginning of our forever.</p>
+                        <div class="timeline-image">
+                            <img src="images/33.jpg" alt="Three years and counting">
                         </div>
                     </div>
                 </div>
@@ -182,38 +342,187 @@
     <section id="memories" class="memories-section">
         <div class="container">
             <h2 class="section-title">Our Precious Memories</h2>
-            <div class="memories-grid">
-                <div class="memory-card" onclick="openMemory(1)">
-                    <img src="https://via.placeholder.com/300x300/ff69b4/ffffff?text=Memory+1" alt="Memory 1">
-                    <div class="memory-overlay">
-                        <h3>First Date</h3>
-                        <p>The day that started everything</p>
+            <p class="memories-subtitle">A beautiful collection of moments that made our hearts smile 💕</p>
+            
+
+            
+            <!-- Masonry Gallery -->
+            <div class="memories-masonry">
+                <div class="memory-item" data-category="adventures" onclick="openLightbox('images/16.HEIC', 'Weekend Adventure', 'Exploring new places and making memories together')">
+                    <div class="memory-photo">
+                        <img src="images/16.HEIC" alt="Weekend Adventure">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Weekend Adventure</h3>
+                                <p>Exploring new places together</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="memory-card" onclick="openMemory(2)">
-                    <img src="https://via.placeholder.com/300x300/ff1493/ffffff?text=Memory+2" alt="Memory 2">
-                    <div class="memory-overlay">
-                        <h3>First Trip</h3>
-                        <p>Adventure together</p>
+                
+                <div class="memory-item" data-category="celebrations" onclick="openLightbox('images/17.jpg', 'Birthday Celebration', 'Making your special day even more special')">
+                    <div class="memory-photo">
+                        <img src="images/17.jpg" alt="Birthday Celebration">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Birthday Celebration</h3>
+                                <p>Making your special day magical</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="memory-card" onclick="openMemory(3)">
-                    <img src="https://via.placeholder.com/300x300/ff69b4/ffffff?text=Memory+3" alt="Memory 3">
-                    <div class="memory-overlay">
-                        <h3>Special Moments</h3>
-                        <p>Everyday magic</p>
+                
+                <div class="memory-item tall" data-category="everyday" onclick="openLightbox('images/18.jpg', 'Morning Coffee', 'Our favorite way to start the day together')">
+                    <div class="memory-photo">
+                        <img src="images/18.jpg" alt="Morning Coffee">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Morning Coffee</h3>
+                                <p>Our favorite way to start the day</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="memory-card" onclick="openMemory(4)">
-                    <img src="https://via.placeholder.com/300x300/ff1493/ffffff?text=Memory+4" alt="Memory 4">
-                    <div class="memory-overlay">
-                        <h3>Celebrations</h3>
-                        <p>Happy times together</p>
+                
+                <div class="memory-item" data-category="special" onclick="openLightbox('images/19.jpg', 'Sunset Together', 'Watching the world turn golden in your eyes')">
+                    <div class="memory-photo">
+                        <img src="images/19.jpg" alt="Sunset Together">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Sunset Together</h3>
+                                <p>Watching the world turn golden</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item tall" data-category="adventures" onclick="openLightbox('images/20.jpg', 'Road Trip Fun', 'The journey was more beautiful than the destination')">
+                    <div class="memory-photo">
+                        <img src="images/20.jpg" alt="Road Trip">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Road Trip Fun</h3>
+                                <p>The journey was more beautiful than the destination</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item" data-category="everyday" onclick="openLightbox('images/21.jpg', 'Cooking Together', 'Making a mess in the kitchen and loving every minute')">
+                    <div class="memory-photo">
+                        <img src="images/21.jpg" alt="Cooking Together">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Cooking Together</h3>
+                                <p>Making a mess and loving it</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item" data-category="celebrations" onclick="openLightbox('images/22.jpg', 'Anniversary Dinner', 'Celebrating another year of love and laughter')">
+                    <div class="memory-photo">
+                        <img src="images/22.jpg" alt="Anniversary Dinner">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Anniversary Dinner</h3>
+                                <p>Celebrating our love story</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item tall" data-category="special" onclick="openLightbox('images/23.jpg', 'Lazy Sunday', 'Perfect moments need no special occasion')">
+                    <div class="memory-photo">
+                        <img src="images/23.jpg" alt="Lazy Sunday">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Lazy Sunday</h3>
+                                <p>Perfect moments need no occasion</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item" data-category="adventures" onclick="openLightbox('images/24.png', 'Beach Day', 'Sand between our toes and love in our hearts')">
+                    <div class="memory-photo">
+                        <img src="images/24.png" alt="Beach Day">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Beach Day</h3>
+                                <p>Sand, sun, and endless love</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item" data-category="everyday" onclick="openLightbox('images/25.png', 'Movie Night', 'Cuddled up with our favorite films and favorite person')">
+                    <div class="memory-photo">
+                        <img src="images/25.png" alt="Movie Night">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Movie Night</h3>
+                                <p>Cuddled up with our favorite films</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item" data-category="special" onclick="openLightbox('images/26.png', 'Surprise Moment', 'The little surprises that make life magical')">
+                    <div class="memory-photo">
+                        <img src="images/26.png" alt="Surprise Moment">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Surprise Moment</h3>
+                                <p>Little surprises that make life magical</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="memory-item" data-category="celebrations" onclick="openLightbox('images/27.png', 'Festival Joy', 'Celebrating traditions and creating new ones')">
+                    <div class="memory-photo">
+                        <img src="images/27.png" alt="Festival Joy">
+                        <div class="memory-hover">
+                            <div class="memory-info">
+                                <h3>Festival Joy</h3>
+                                <p>Celebrating traditions together</p>
+                                <span class="view-btn">View Full Size</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
+    
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <div class="lightbox-image-container">
+                <img id="lightbox-image" src="" alt="">
+                <button class="lightbox-prev" onclick="prevLightboxImage()">&#8249;</button>
+                <button class="lightbox-next" onclick="nextLightboxImage()">&#8250;</button>
+            </div>
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-description"></p>
+            </div>
+        </div>
+    </div>
 
     <!-- Quiz Section -->
     <section id="quiz" class="quiz-section">
@@ -331,7 +640,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Made with ❤️ for the most amazing person in the world</p>
+            <p>&copy; 2025 Made with ❤️ for the most amazing person in the world</p>
             <div class="footer-hearts">
                 <i class="fas fa-heart"></i>
                 <i class="fas fa-heart"></i>

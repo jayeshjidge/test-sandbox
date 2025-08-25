@@ -845,8 +845,230 @@ window.addEventListener('resize', () => {
     }
 });
 
+// Memory Gallery Lightbox Functionality
+let currentLightboxIndex = 0;
+let lightboxImages = [];
+
+// Initialize memory gallery
+document.addEventListener('DOMContentLoaded', () => {
+    initializeMemoryGallery();
+});
+
+function initializeMemoryGallery() {
+    // Get all memory items and store them for lightbox navigation
+    const memoryItems = document.querySelectorAll('.memory-item');
+    lightboxImages = Array.from(memoryItems).map(item => {
+        const img = item.querySelector('img');
+        const title = item.querySelector('h3').textContent;
+        const description = item.querySelector('p').textContent;
+        return {
+            src: img.src,
+            title: title,
+            description: description
+        };
+    });
+}
+
+// Lightbox functionality
+function openLightbox(imageSrc, title, description) {
+    const modal = document.getElementById('lightbox-modal');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+
+    // Find the index of the current image
+    currentLightboxIndex = lightboxImages.findIndex(img => img.src.includes(imageSrc));
+    
+    lightboxImage.src = imageSrc;
+    lightboxTitle.textContent = title;
+    lightboxDescription.textContent = description;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+    // Track lightbox open
+    analytics.logInteraction({
+        event: 'lightbox_opened',
+        image: imageSrc,
+        title: title,
+        timestamp: new Date().toISOString()
+    });
+}
+
+function closeLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+
+    analytics.logInteraction({
+        event: 'lightbox_closed',
+        timestamp: new Date().toISOString()
+    });
+}
+
+function prevLightboxImage() {
+    currentLightboxIndex = (currentLightboxIndex - 1 + lightboxImages.length) % lightboxImages.length;
+    updateLightboxImage();
+}
+
+function nextLightboxImage() {
+    currentLightboxIndex = (currentLightboxIndex + 1) % lightboxImages.length;
+    updateLightboxImage();
+}
+
+function updateLightboxImage() {
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDescription = document.getElementById('lightbox-description');
+    
+    const currentImage = lightboxImages[currentLightboxIndex];
+    
+    lightboxImage.src = currentImage.src;
+    lightboxTitle.textContent = currentImage.title;
+    lightboxDescription.textContent = currentImage.description;
+
+    analytics.logInteraction({
+        event: 'lightbox_navigation',
+        direction: 'next',
+        imageIndex: currentLightboxIndex,
+        timestamp: new Date().toISOString()
+    });
+}
+
+// Close lightbox when clicking outside the image
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('lightbox-modal');
+    if (e.target === modal) {
+        closeLightbox();
+    }
+});
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('lightbox-modal');
+    if (modal.style.display === 'block') {
+        switch(e.key) {
+            case 'Escape':
+                closeLightbox();
+                break;
+            case 'ArrowLeft':
+                prevLightboxImage();
+                break;
+            case 'ArrowRight':
+                nextLightboxImage();
+                break;
+        }
+    }
+});
+
+// Local Video Player Functionality
+function toggleVideoPlay() {
+    const video = document.getElementById('love-story-video');
+    const playIcon = document.getElementById('play-icon');
+    const playBtn = document.querySelector('.custom-play-btn');
+    const videoWrapper = document.querySelector('.video-wrapper');
+    
+    if (video.paused) {
+        video.play();
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+        playBtn.classList.add('playing');
+        videoWrapper.classList.add('playing');
+        
+        // Track video play
+        analytics.logInteraction({
+            event: 'video_played',
+            video_id: 'love-story-video',
+            timestamp: new Date().toISOString()
+        });
+    } else {
+        video.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+        playBtn.classList.remove('playing');
+        videoWrapper.classList.remove('playing');
+        
+        // Track video pause
+        analytics.logInteraction({
+            event: 'video_paused',
+            video_id: 'love-story-video',
+            timestamp: new Date().toISOString()
+        });
+    }
+}
+
+// Enhanced video control handling
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('love-story-video');
+    const overlay = document.querySelector('.video-controls-overlay');
+    const videoWrapper = document.querySelector('.video-wrapper');
+    
+    if (video && overlay && videoWrapper) {
+        // Hide custom overlay when video plays
+        video.addEventListener('play', () => {
+            const playIcon = document.getElementById('play-icon');
+            const playBtn = document.querySelector('.custom-play-btn');
+            
+            playIcon.classList.remove('fa-play');
+            playIcon.classList.add('fa-pause');
+            playBtn.classList.add('playing');
+            videoWrapper.classList.add('playing');
+            overlay.style.opacity = '0';
+        });
+        
+        // Show custom overlay when video pauses
+        video.addEventListener('pause', () => {
+            const playIcon = document.getElementById('play-icon');
+            const playBtn = document.querySelector('.custom-play-btn');
+            
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            playBtn.classList.remove('playing');
+            videoWrapper.classList.remove('playing');
+        });
+        
+        // Handle video ended
+        video.addEventListener('ended', () => {
+            const playIcon = document.getElementById('play-icon');
+            const playBtn = document.querySelector('.custom-play-btn');
+            
+            playIcon.classList.remove('fa-pause');
+            playIcon.classList.add('fa-play');
+            playBtn.classList.remove('playing');
+            videoWrapper.classList.remove('playing');
+            overlay.style.opacity = '1';
+            
+            // Track video completed
+            analytics.logInteraction({
+                event: 'video_completed',
+                video_id: 'love-story-video',
+                timestamp: new Date().toISOString()
+            });
+        });
+        
+        // Allow native controls to work by clicking through the wrapper when video is playing
+        video.addEventListener('click', (e) => {
+            // If video is playing, let the native controls handle the click
+            if (!video.paused) {
+                e.stopPropagation();
+            }
+        });
+        
+        // Track when user seeks in the video
+        video.addEventListener('seeked', () => {
+            analytics.logInteraction({
+                event: 'video_seeked',
+                video_id: 'love-story-video',
+                currentTime: video.currentTime,
+                timestamp: new Date().toISOString()
+            });
+        });
+    }
+});
+
 console.log('💕 Website loaded with love! All interactions are being tracked. 💕');
 console.log('🎠 Beautiful carousel is ready with manual navigation and swipe support! 🎠');
-console.log('🎬 YouTube video embedded with analytics tracking! 🎬');
+console.log('🎬 Local video player ready with custom controls and analytics! 🎬');
 console.log('📱 Mobile navigation is ready with hamburger menu! 📱');
+console.log('🖼️ Interactive memory gallery with lightbox is ready! 🖼️');
 console.log('💡 Tip: Call getAnalyticsData() in the console to see all tracked interactions!');
