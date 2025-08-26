@@ -153,15 +153,20 @@ document.querySelectorAll('.nav-link').forEach(link => {
 // Quiz functionality
 let currentQuestion = 1;
 let quizAnswers = {};
-const totalQuestions = 5;
+const totalQuestions = 10;
 
-// Correct answers (you can modify these based on your actual relationship)
+// Correct answers for the quiz
 const correctAnswers = {
-    1: 'A', // Coffee Shop
-    2: 'D', // Everything
-    3: 'D', // Your actual song
-    4: 'D', // Anywhere together
-    5: 'D'  // Everything about us
+    1: 'C', // British Brewing Company 🍺
+    2: 'C', // your Kindness ✨
+    3: 'A', // 1st October 2022
+    4: 'D', // Everything about us ❤️
+    5: 'D', // 11th September
+    6: 'B', // Cuddles 🫂
+    7: 'A', // 6th November
+    8: 'D', // Everything about you ❤️
+    9: 'C', // 8th October
+    10: 'D' // All of the Above
 };
 
 function selectAnswer(questionNum, answer) {
@@ -189,12 +194,15 @@ function selectAnswer(questionNum, answer) {
 }
 
 function nextQuestion() {
+    console.log(`Current question: ${currentQuestion}, Total questions: ${totalQuestions}`);
+    
     if (currentQuestion < totalQuestions) {
         // Hide current question
         document.getElementById(`question-${currentQuestion}`).classList.remove('active');
         
         // Show next question
         currentQuestion++;
+        console.log(`Moving to question: ${currentQuestion}`);
         document.getElementById(`question-${currentQuestion}`).classList.add('active');
         
         // Update navigation buttons
@@ -208,9 +216,12 @@ function nextQuestion() {
         
         // If last question, change button text
         if (currentQuestion === totalQuestions) {
+            console.log('Reached last question, changing button to Finish Quiz');
             document.getElementById('next-btn').textContent = 'Finish Quiz';
             document.getElementById('next-btn').onclick = finishQuiz;
         }
+    } else {
+        console.log('Already at last question');
     }
 }
 
@@ -235,6 +246,11 @@ function previousQuestion() {
 }
 
 function finishQuiz() {
+    console.log('finishQuiz called!');
+    console.log('Current question:', currentQuestion);
+    console.log('Total questions:', totalQuestions);
+    console.log('User answers:', quizAnswers);
+    
     // Calculate score
     let score = 0;
     for (let i = 1; i <= totalQuestions; i++) {
@@ -242,6 +258,8 @@ function finishQuiz() {
             score++;
         }
     }
+    
+    console.log('Final score:', score, 'out of', totalQuestions);
     
     // Hide current question
     document.getElementById(`question-${currentQuestion}`).classList.remove('active');
@@ -257,8 +275,12 @@ function finishQuiz() {
     let message = '';
     if (score === totalQuestions) {
         message = "Perfect! You know us so well! 💕 You truly pay attention to every detail of our relationship.";
-    } else if (score >= 3) {
+    } else if (score >= 8) {
+        message = "Amazing! You know us incredibly well! 🌟 You're truly connected to every aspect of our relationship.";
+    } else if (score >= 6) {
         message = "Great job! You know us pretty well! 😊 There's always more to discover about each other.";
+    } else if (score >= 4) {
+        message = "Good effort! You're learning about us! 💕 Keep discovering more about our beautiful relationship.";
     } else {
         message = "We have so much more to learn about each other! 💖 That's what makes our journey exciting.";
     }
@@ -1129,10 +1151,34 @@ function showRatingOptions() {
     showFooterMessage(message);
 }
 
+// Initialize quiz when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎯 Quiz initialization started!');
+    console.log('Total questions:', totalQuestions);
+    console.log('First question should be active');
+    
+    // Ensure first question is active
+    const firstQuestion = document.getElementById('question-1');
+    if (firstQuestion) {
+        firstQuestion.classList.add('active');
+        console.log('First question activated');
+    }
+    
+    // Initialize navigation buttons
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    
+    if (prevBtn && nextBtn) {
+        prevBtn.disabled = true; // Can't go back from first question
+        nextBtn.disabled = true; // Can't go next without answering
+        console.log('Navigation buttons initialized');
+    }
+});
+
 console.log('💕 Website loaded with love! All interactions are being tracked. 💕');
 console.log('🎠 Beautiful carousel is ready with manual navigation and swipe support! 🎠');
 console.log('🎬 Local video player ready with custom controls and analytics! 🎬');
 console.log('📱 Mobile navigation is ready with hamburger menu! 📱');
 console.log('🖼️ Interactive memory gallery with lightbox is ready! 🖼️');
-console.log('🎯 Footer buttons are ready with interactive functionality! 🎯');
+console.log('🎯 Quiz system ready with 10 questions! 🎯');
 console.log('💡 Tip: Call getAnalyticsData() in the console to see all tracked interactions!');
